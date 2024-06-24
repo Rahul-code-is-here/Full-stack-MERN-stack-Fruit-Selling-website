@@ -19,7 +19,13 @@ const app = express();
 
 // middelwares
 // json no use karva
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://deploy-mern-frontend.vercel.app"],
+    methods: ["POST", "GET"],
+    credentials: true,
+  })
+);
 app.use(express.json()); //pela body parser use karta but have express ma aa feature aave j che
 app.use(morgan("dev"));
 

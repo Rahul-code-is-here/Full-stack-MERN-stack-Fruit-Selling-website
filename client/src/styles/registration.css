@@ -1,0 +1,21 @@
+.register-container {
+    min-height: 100vh;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+}
+
+.register-card {
+    background: white;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.btn-primary {
+    background-color: #ff7e5f;
+    border-color: #ff7e5f;
+}
+
+.btn-primary:hover {
+    background-color: #feb47b;
+    border-color: #feb47b;
+}

@@ -7,6 +7,8 @@ import authRoutes from "./routes/authRoute.js";
 import categoryRoutes from "./routes/categoryRoute.js";
 import productRoutes from "./routes/productRoute.js";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url"; // Import necessary modules
 
 //config env
 dotenv.config();
@@ -17,15 +19,13 @@ connectDB();
 //rest object
 const app = express();
 
+// Define __dirname for ES module scope
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // middelwares
 // json no use karva
-app.use(
-  cors({
-    origin: ["https://deploy-mern-frontend.vercel.app"],
-    methods: ["POST", "GET"],
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use(express.json()); //pela body parser use karta but have express ma aa feature aave j che
 app.use(morgan("dev"));
 
@@ -33,6 +33,13 @@ app.use(morgan("dev"));
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/category", categoryRoutes); // aakhi app ma have authRoutes and categoryRoutes game tyathi use kari shakie
 app.use("/api/v1/product", productRoutes);
+
+// static files
+app.use(express.static(path.join(__dirname, "./client/build")));
+
+app.get("*", function (req, res) {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
 // rest api
 app.get("/", (req, res) => {
